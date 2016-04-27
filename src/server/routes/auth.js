@@ -68,7 +68,7 @@ router.post('/login', function (req, res, next) {
       var token = authHelpers.generateToken(user);
       res.status(200).json({ status: 'success',
                              data: { token: token,
-                                     user: user.email }
+                                     user: user }
       });
     
     });
