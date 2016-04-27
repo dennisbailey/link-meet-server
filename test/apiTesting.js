@@ -6,11 +6,11 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('API routes', function() {
+describe('Meetup API routes', function() {
 
-  describe('Get all categories', function() {
+  describe('Get All Categories', function() {
 
-      it('should get all Meetup Categories', function(done) {
+      it('should get all of the Meetup categories', function(done) {
           chai.request(server)
           .get('/api/meetup')
           .end(function(err, res) {
@@ -46,7 +46,7 @@ describe('API routes', function() {
   });
 
 
-  describe('Get groups for a category', function() {
+  describe('Get Groups for a Category', function() {
 
       it('should get a list of Meetup groups for a category', function(done) {
           chai.request(server)
@@ -87,7 +87,7 @@ describe('API routes', function() {
   });
   
   
-  describe('Get meetups for a group', function() {
+  describe('Get Meetups for a Group', function() {
 
       it('should get a list of meetups for a given group', function(done) {
           chai.request(server)
@@ -126,9 +126,9 @@ describe('API routes', function() {
   });
   
   
-  describe('Get rsvps for a meetup', function() {
+  describe('Get RSVPs for a Meetup', function() {
 
-      it('should get a list of rsvps for a given meetup', function(done) {
+      it('should get a list of RSVPs for a given meetup', function(done) {
           chai.request(server)
           .get('/api/meetup/groups/womenwhostartupcolorado/events/qlmkplyvgbjc')
           .end(function(err, res) {

@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 // *** routes *** //
 var meetupRoutes = require('./routes/meetup.js');
 var authRoute = require('./routes/auth.js');
-var userRoute = require('./routes/users.js');
+// var userRoute = require('./routes/users.js');
 
 
 // *** express instance *** //
@@ -48,7 +48,7 @@ app.use(cors());
 // *** main routes *** //
 app.use('/api/meetup', meetupRoutes);
 app.use('/auth', authRoute);
-app.use('/user', userRoute);
+// app.use('/user', userRoute);
 
 
 

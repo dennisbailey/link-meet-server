@@ -25,7 +25,7 @@ describe('Auth Routes', function() {
     testUtilities.dropDatabase(done);
   });
 
-  describe('/POST auth/register', function() {
+  describe('Login and Registration Routes', function() {
     
     it('should create a new user', function(done) {
       
@@ -111,6 +111,7 @@ describe('Auth Routes', function() {
     });
   });
   
+  
   it('should not login an unknown user', function(done) {
     chai.request(server)
     .post('/auth/login')
@@ -131,6 +132,7 @@ describe('Auth Routes', function() {
       done();
     });
   });
+ 
   
   it('should not login a user with a bad password', function(done) {
     chai.request(server)
@@ -153,6 +155,7 @@ describe('Auth Routes', function() {
       done();
     });
   });
+  
   
 });
 
