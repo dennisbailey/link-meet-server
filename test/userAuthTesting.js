@@ -22,7 +22,6 @@ describe('Auth Routes', function() {
 
   after(function(done) {
     // drop db
-    console.log('after');
     testUtilities.dropDatabase(done);
   });
 
@@ -40,7 +39,6 @@ describe('Auth Routes', function() {
       })
       
       .end(function(err, res) {
-        console.log(res.body);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
@@ -55,6 +53,7 @@ describe('Auth Routes', function() {
         res.body.data.token.should.be.a('string');
         
         res.body.data.should.have.property('user');
+        console.log('data ', res.body.data);
         res.body.data.user.should.be.a('object');
         
       done();
@@ -75,7 +74,6 @@ describe('Auth Routes', function() {
       })
       
       .end(function(err, res) {
-        console.log(res.body);
         res.status.should.equal(409);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
