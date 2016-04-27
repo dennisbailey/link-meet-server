@@ -14,16 +14,17 @@ chai.use(chaiHttp);
 
 describe('Auth Routes', function() {
   
-//   before(function(done) {
-//     // drop db
-//     testUtilities.dropDatabase();
-//     testSeed.runSeed(done);
-//   });
-// 
-//   after(function(done) {
-//     // drop db
-//     testUtilities.dropDatabase(done);
-//   });
+  before(function(done) {
+    // drop db
+    testUtilities.dropDatabase();
+    testSeed.runSeed(done);
+  });
+
+  after(function(done) {
+    // drop db
+    console.log('after');
+    testUtilities.dropDatabase(done);
+  });
 
   describe('/POST auth/register', function() {
     
@@ -39,15 +40,39 @@ describe('Auth Routes', function() {
       })
       
       .end(function(err, res) {
+        console.log(res.body);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
         res.body.should.have.property('status');
-        res.body.should.have.property('data');
         res.body.status.should.equal('success');
-        res.body.data.should.be.a('object');
-        res.body.data.token.should.be.a('string');
-//         res.body.data.user.should.equal('michael@herman.com');
+        
+      done();
+      
+      });
+    
+    });
+    
+    it('should prevent an existing user from registering', function(done) {
+      
+      chai.request(server)
+      
+      .post('/auth/register')
+      
+      .send({ email: 'michael@herman.com',
+              username: 'Miguel',
+              password: 'test'
+      })
+      
+      .end(function(err, res) {
+        console.log(res.body);
+        res.status.should.equal(409);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+        res.body.status.should.equal('fail');
+        res.body.message.should.equal('Email already exists');
         
       done();
       
