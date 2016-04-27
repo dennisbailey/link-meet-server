@@ -53,7 +53,6 @@ describe('Auth Routes', function() {
         res.body.data.token.should.be.a('string');
         
         res.body.data.should.have.property('user');
-        console.log('data ', res.body.data);
         res.body.data.user.should.be.a('object');
         
       done();

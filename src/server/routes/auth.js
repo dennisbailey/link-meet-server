@@ -32,7 +32,7 @@ router.post('/register', function(req, res, next) {
 
       // create a jwt token
       var token = authHelpers.generateToken(newUser);
-      
+
       // Send a 'success' status code and message when a new user is added
       res.status(200).json({ status: 'success',
                              data: { token: token,
