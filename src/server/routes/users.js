@@ -7,9 +7,9 @@ var Catalog = require('../../../models/catalogModel.js');
   {name, url, photoUrl} to user's groups */
 /* Update Current User Profile */
 router.put('/:id/group', function(req,res,next) {
-  var user = req.params.id;
+  var user_id = req.params.id;
   var option = req.body;
-  User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+  User.findByIdAndUpdate(req.params.id, {$addToSet: {groups: req.body}}, {new:true})
   .then(function (user) {
     res.status(200).json({
       status: 'success',
@@ -24,75 +24,35 @@ router.put('/:id/group', function(req,res,next) {
 /* Update Current User by adding a new person
   {name, notes} to user's people */
 /* Update Current User Profile */
-router.put('/:id/edit', function(req,res,next) {
-  User.findByIdQ(req.params.id)
-  .then(function(user) {
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    user.email = req.body.email;
-    user.address = {
-          street: req.body.street,
-          apt: req.body.apt,
-          zipCode: req.body.zipcode,
-          state: req.body.state,
-          country: req.body.country
-        };
-    user
-      .saveQ()
-      .then(function(userUpdated) {
-        res.json(userUpdated);
-      })
-      .catch(function(err) {
-        res.json({
-          status: 500,
-          message: err
-        });
-      });
+router.put('/:id/people', function(req,res,next) {
+  var user_id = req.params.id;
+  var option = req.body;
+  User.findByIdAndUpdate(req.params.id, {$addToSet: {people: req.body}}, {new:true})
+  .then(function (user) {
+    res.status(200).json({
+      status: 'success',
+      data: user
+    });
+  })
+  .catch(function (err) {
+    return next(err);
   });
 });
 
 // need to delete self
-
-/* Delete item from user's cart */
-router.delete('/:id/cart/delete', function(req,res,next) {
-  User.findByIdAndUpdate(req.params.id,
-    {
-      $pull: {
-        "cart": {
-          itemID: req.body.itemID
-        }
-      }
-    },
-    {multi: false},
-    function(err, user) {
-      if (err) {
-        res.json({
-          status: 500,
-          message: err
-        });
-      } else {
-          res.json(user);
-      }
-    });
-});
-
-
-/* Delete A user */
-router.delete('/:id/delete', function(req,res,next) {
-  User.findByIdAndRemoveQ(req.params.id)
-  .then(function(data) {
-    res.json({
-      status: 200,
-      message: 'User Removed'
+router.delete('/:id/delete', function (req, res, next) {
+  User.findByIdAndRemove(req.params.id)
+  .then(function (user) {
+    res.status(200).json({
+      status: 'success',
+      data: user
     });
   })
-  .catch(function(err) {
-    res.json({
-      status: 500,
-      message: err
-    });
+  .catch(function (err) {
+    return next(err);
   });
 });
+
 
 
 module.exports = router;
