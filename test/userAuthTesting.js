@@ -143,10 +143,11 @@ describe('Auth Routes', function() {
       res.status.should.equal(401);
       res.type.should.equal('application/json');
       res.body.should.be.a('object');
-      res.body.should.have.property('status');
-      res.body.should.have.property('message');
       
+      res.body.should.have.property('status');
       res.body.status.should.equal('fail');
+      
+      res.body.should.have.property('message');
       res.body.message.should.equal('Password is not correct');
       
       done();
