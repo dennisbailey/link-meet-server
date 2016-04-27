@@ -5,10 +5,25 @@ var chaiHttp = require('chai-http');
 var server = require('../src/server/app');
 var should = chai.should();
 
+var Users = require('../src/server/models/users')
+var testUtilities = require('./utilities');
+var testSeed = require('../src/server/models/seeds/user-seed');
+
 chai.use(chaiHttp);
 
 
 describe('Auth Routes', function() {
+  
+  before(function(done) {
+    // drop db
+    testUtilities.dropDatabase();
+    testSeed.runSeed(done);
+  });
+
+  after(function(done) {
+    // drop db
+    testUtilities.dropDatabase(done);
+  });
 
   describe('/POST auth/register', function() {
     
@@ -27,14 +42,47 @@ describe('Auth Routes', function() {
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.should.have.property('data');
-        res.body.status.should.equal('success');
-        res.body.data.should.be.a('object');
-        res.body.data.token.should.be.a('string');
-        res.body.data.user.should.equal('michael@herman.com');
         
-        done();
+        res.body.should.have.property('status');
+        res.body.status.should.equal('success');
+        
+        res.body.should.have.property('data');
+        res.body.data.should.be.a('object');
+        
+        res.body.data.should.have.property('token');
+        res.body.data.token.should.be.a('string');
+        
+        res.body.data.should.have.property('user');
+        console.log('data ', res.body.data);
+        res.body.data.user.should.be.a('object');
+        
+      done();
+      
+      });
+    
+    });
+    
+    it('should prevent an existing user from registering a second time', function(done) {
+      
+      chai.request(server)
+      
+      .post('/auth/register')
+      
+      .send({ email: 'michael@herman.com',
+              username: 'Miguel',
+              password: 'test'
+      })
+      
+      .end(function(err, res) {
+        res.status.should.equal(409);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+        res.body.status.should.equal('fail');
+        res.body.message.should.equal('Email already exists');
+        
+      done();
       
       });
     

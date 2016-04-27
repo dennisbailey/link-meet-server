@@ -113,8 +113,8 @@ describe('API routes', function() {
               // Check data property values
               // The Meetup API geolocates your API request. This test will fail if the IP is not in Denver, CO
               // This test will also fail as the date changes
-              res.body.data[0].id.should.equal('qlmkplyvgbjc');
-              res.body.data[0].name.should.equal('Basecamp Boulder, Women Who Startup Monthly Event');
+              res.body.data[0].id.should.equal('rpscmlyvjbcc');
+              res.body.data[0].name.should.equal('Basecamp Denver, Women Who Startup Monthly Event');
               res.body.data[0].group.name.should.equal('Women Who Startup');
               
               done();

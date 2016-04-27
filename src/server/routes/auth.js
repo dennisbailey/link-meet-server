@@ -27,15 +27,23 @@ router.post('/register', function(req, res, next) {
     // If the email address does not exist, add the user to the database
     // req.body should contain {email, username and password}
     var newUser = new User (req.body);
+<<<<<<< HEAD
     newUser.save(function () {
+=======
+        
+    newUser.save(function () {
+
+>>>>>>> upstream/master
       // create a jwt token
       // console.log("newbie: ", newbie)
       var token = authHelpers.generateToken(newUser);
+      
       // Send a 'success' status code and message when a new user is added
       res.status(200).json({ status: 'success',
                              data: { token: token,
                                      user: newUser }
                           });
+    
     });
   
   })
@@ -69,7 +77,7 @@ router.post('/login', function (req, res, next) {
       var token = authHelpers.generateToken(user);
       res.status(200).json({ status: 'success',
                              data: { token: token,
-                                     user: user.email }
+                                     user: user }
       });
     
     });
