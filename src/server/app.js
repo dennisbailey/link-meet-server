@@ -5,7 +5,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// var jwt = require('jsonwebtoken');
+// var bcrypt = require('bcrypt');
+// var protectApi = express.Router();
+var config = require('../_config');
 var cors = require('cors');
+var mongoose = require('mongoose');
 
 
 // *** routes *** //
@@ -13,10 +18,19 @@ var meetupRoutes = require('./routes/meetup.js');
 var authRoute = require('./routes/auth.js');
 
 
-
 // *** express instance *** //
 var app = express();
 
+
+// *** mongo connection *** //
+var environment = process.env.NODE_ENV || 'development';
+var mongoURI = config.mongoURI[environment];
+
+mongoose.connect(mongoURI, function(err, res) {
+  if (err) {
+    console.log('Error connecting to the database. ' + err);
+  }
+});
 
 
 // *** static directory *** //
