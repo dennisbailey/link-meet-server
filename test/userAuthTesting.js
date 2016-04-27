@@ -132,7 +132,7 @@ describe('Auth Routes', function() {
     });
   });
   
-  it('should not login a user with a bad passwordr', function(done) {
+  it('should not login a user with a bad password', function(done) {
     chai.request(server)
     .post('/auth/login')
     .send({
