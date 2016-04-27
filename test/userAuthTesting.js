@@ -5,10 +5,25 @@ var chaiHttp = require('chai-http');
 var server = require('../src/server/app');
 var should = chai.should();
 
+var Users = require('../src/server/models/users')
+var testUtilities = require('./utilities');
+var testSeed = require('../src/server/models/seeds/user-seed');
+
 chai.use(chaiHttp);
 
 
 describe('Auth Routes', function() {
+  
+//   before(function(done) {
+//     // drop db
+//     testUtilities.dropDatabase();
+//     testSeed.runSeed(done);
+//   });
+// 
+//   after(function(done) {
+//     // drop db
+//     testUtilities.dropDatabase(done);
+//   });
 
   describe('/POST auth/register', function() {
     
@@ -32,9 +47,9 @@ describe('Auth Routes', function() {
         res.body.status.should.equal('success');
         res.body.data.should.be.a('object');
         res.body.data.token.should.be.a('string');
-        res.body.data.user.should.equal('michael@herman.com');
+//         res.body.data.user.should.equal('michael@herman.com');
         
-        done();
+      done();
       
       });
     
