@@ -28,8 +28,10 @@ router.post('/register', function(req, res, next) {
     // req.body should contain {email, username and password}
     var newUser = new User (req.body);
 
+    // console.log("newUser: ", newUser);
         
     newUser.save(function () {
+    
 
       // create a jwt token
       // console.log("newbie: ", newbie)

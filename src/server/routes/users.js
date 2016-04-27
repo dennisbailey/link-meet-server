@@ -6,30 +6,18 @@ var Catalog = require('../../../models/catalogModel.js');
 /* Update Current User by adding a new group
   {name, url, photoUrl} to user's groups */
 /* Update Current User Profile */
-router.put('/:id/edit', function(req,res,next) {
-  User.findByIdQ(req.params.id)
-  .then(function(user) {
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    user.email = req.body.email;
-    user.address = {
-          street: req.body.street,
-          apt: req.body.apt,
-          zipCode: req.body.zipcode,
-          state: req.body.state,
-          country: req.body.country
-        };
-    user
-      .saveQ()
-      .then(function(userUpdated) {
-        res.json(userUpdated);
-      })
-      .catch(function(err) {
-        res.json({
-          status: 500,
-          message: err
-        });
-      });
+router.put('/:id/group', function(req,res,next) {
+  var user = req.params.id;
+  var option = req.body;
+  User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+  .then(function (user) {
+    res.status(200).json({
+      status: 'success',
+      data: user
+    });
+  })
+  .catch(function (err) {
+    return next(err);
   });
 });
 
