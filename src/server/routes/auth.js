@@ -27,13 +27,10 @@ router.post('/register', function(req, res, next) {
     // If the email address does not exist, add the user to the database
     // req.body should contain {email, username and password}
     var newUser = new User (req.body);
-<<<<<<< HEAD
-    newUser.save(function () {
-=======
+
         
     newUser.save(function () {
 
->>>>>>> upstream/master
       // create a jwt token
       // console.log("newbie: ", newbie)
       var token = authHelpers.generateToken(newUser);
