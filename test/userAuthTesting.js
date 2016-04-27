@@ -44,8 +44,18 @@ describe('Auth Routes', function() {
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
+        
         res.body.should.have.property('status');
         res.body.status.should.equal('success');
+        
+        res.body.should.have.property('data');
+        res.body.data.should.be.a('object');
+        
+        res.body.data.should.have.property('token');
+        res.body.data.token.should.be.a('string');
+        
+        res.body.data.should.have.property('user');
+        res.body.data.user.should.be.a('object');
         
       done();
       
@@ -53,7 +63,7 @@ describe('Auth Routes', function() {
     
     });
     
-    it('should prevent an existing user from registering', function(done) {
+    it('should prevent an existing user from registering a second time', function(done) {
       
       chai.request(server)
       
