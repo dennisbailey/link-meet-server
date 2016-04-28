@@ -13,24 +13,16 @@ var meetupAPI = 'https://api.meetup.com/';
 // Get ALL Meetup categories
 router.get('/', function(req, res, next) {
   
-  authHelpers.ensureAuthenticated(req, res, next)
-  
-  .then( function (result) { 
-  
 
-    // Query the Meetup API to return all available categories
-    rp(meetupAPI + '/2/categories?key=' + API_KEY + '&sign=true&photo-host=public&page=40')
-    
-    // Return the results and a success message
-    .then(function(data){ res.status(200).json({ status: 'success',
-                                                 data: JSON.parse(data).results })
-    })
-    
-    .catch(function(error){ return error });
-  
-   })
-   
-   .catch( function (error) { return error; })
+  // Query the Meetup API to return all available categories
+	rp(meetupAPI + '/2/categories?key=' + API_KEY + '&sign=true&photo-host=public&page=40')
+
+  // Return the results and a success message
+  .then(function(data){ res.status(200).json({ status: 'success',
+                                               data: JSON.parse(data).results })
+  })
+
+  .catch(function(error){ return error })
 
 });
 
