@@ -125,10 +125,8 @@ describe('Auth Routes', function() {
       
       chai.request(server)
       
-      .get('/api/meetup/groups/womenwhostartupcolorado')
-      
-      .set('authorization', token )
-      
+      .get('/user')
+            
       .end(function(err, res) {
 
         // Check the response code and type
