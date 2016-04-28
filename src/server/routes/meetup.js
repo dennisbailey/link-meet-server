@@ -3,8 +3,7 @@ var router = express.Router();
 var http = require('http');
 var rp = require('request-promise');
 
-// *** Require Helpers *** //
-var authHelpers = require('./helpers/authHelpers')
+
 
 // Environment variable and base URL
 var API_KEY = process.env.API_KEY;
@@ -13,7 +12,6 @@ var meetupAPI = 'https://api.meetup.com/';
 // Get ALL Meetup categories
 router.get('/', function(req, res, next) {
   
-
   // Query the Meetup API to return all available categories
 	rp(meetupAPI + '/2/categories?key=' + API_KEY + '&sign=true&photo-host=public&page=40')
 

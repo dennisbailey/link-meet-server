@@ -11,6 +11,9 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 require('dotenv').load();
 
+// *** Require Helpers *** //
+var authHelpers = require('./routes/helpers/authHelpers');
+
 
 // *** routes *** //
 var meetupRoutes = require('./routes/meetup.js');
@@ -44,8 +47,9 @@ app.use(cors());
 
 
 // *** main routes *** //
-app.use('/api/meetup', meetupRoutes);
 app.use('/auth', authRoute);
+app.use('/api', authHelpers.ensureAuthenticated);
+app.use('/api/meetup', meetupRoutes);
 // app.use('/user', userRoute);
 
 
