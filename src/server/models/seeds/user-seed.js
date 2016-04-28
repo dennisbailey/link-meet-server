@@ -1,3 +1,4 @@
+// Seed the user collection
 var User = require('../users');
 
 var data = [
@@ -9,8 +10,9 @@ var data = [
 
 function runSeed(done) {
   var user = new User(data[0]);
+  
   user.save()
-  .then(function(){
+  .then(function() {
     done();
   });
 }
