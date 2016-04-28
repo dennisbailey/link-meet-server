@@ -5,9 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var jwt = require('jsonwebtoken');
-// var bcrypt = require('bcrypt');
-// var protectApi = express.Router();
+
 var config = require('../_config');
 var cors = require('cors');
 var mongoose = require('mongoose');
