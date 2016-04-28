@@ -4,7 +4,7 @@ var http = require('http');
 var request = require('request-promise');
 
 // *** Require Helpers *** //
-var authHelpers = require('./helpers/authHelpers')
+var authHelpers = require('./helpers/authHelpers');
 
 // *** Require MongoDB *** //
 var User = require('../models/users');
