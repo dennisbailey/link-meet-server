@@ -39,22 +39,26 @@ describe('Auth Routes', function() {
       })
       
       .end(function(err, res) {
+        // Check the response code and type
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
+        res.body.data.should.be.a('object');
+        res.body.data.user.should.be.a('object');
+        res.body.data.token.should.be.a('string');
+
         
+        // Check the keys in the response
         res.body.should.have.property('status');
+        res.body.should.have.property('data');
+        res.body.data.should.have.property('token');
+        res.body.data.should.have.property('user');
+        
+        
+        // Check the response values
         res.body.status.should.equal('success');
         
-        res.body.should.have.property('data');
-        res.body.data.should.be.a('object');
-        
-        res.body.data.should.have.property('token');
-        res.body.data.token.should.be.a('string');
-        
-        res.body.data.should.have.property('user');
-        res.body.data.user.should.be.a('object');
-        
+               
       done();
       
       });
@@ -73,11 +77,16 @@ describe('Auth Routes', function() {
       })
       
       .end(function(err, res) {
+        // Check the response code and type
         res.status.should.equal(409);
         res.type.should.equal('application/json');
         res.body.should.be.a('object');
+        
+        // Check the keys in the response
         res.body.should.have.property('status');
         res.body.should.have.property('message');
+        
+        // Check the response values
         res.body.status.should.equal('fail');
         res.body.message.should.equal('Email already exists');
         
@@ -88,75 +97,102 @@ describe('Auth Routes', function() {
     });
     
     
-  it('should login a user', function(done) {
-    chai.request(server)
-    .post('/auth/login')
-    .send({
-      email: 'michael@herman.com',
-      password: 'test'
-    })
-    .end(function(err, res) {
-      res.status.should.equal(200);
-      res.type.should.equal('application/json');
-      res.body.should.be.a('object');
-      res.body.should.have.property('status');
-      res.body.should.have.property('data');
+    it('should login a user', function(done) {
       
-      res.body.status.should.equal('success');
+      chai.request(server)
       
-      res.body.data.should.be.a('object');
-      res.body.data.token.should.be.a('string');
-      res.body.data.user.email.should.equal('michael@herman.com');
-      done();
+      .post('/auth/login')
+      
+      .send({
+        email: 'michael@herman.com',
+        password: 'test'
+      })
+      
+      .end(function(err, res) {
+        // Check the response code and type
+        res.status.should.equal(200);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        res.body.data.should.be.a('object');
+        res.body.data.token.should.be.a('string');
+        
+        // Check the keys in the response
+        res.body.should.have.property('status');
+        res.body.should.have.property('data');
+        
+        // Check the response values
+        res.body.status.should.equal('success');
+        res.body.data.user.email.should.equal('michael@herman.com');
+        
+        done();
+        
+      });
+    
     });
-  });
-  
-  
-  it('should not login an unknown user', function(done) {
-    chai.request(server)
-    .post('/auth/login')
-    .send({
-      email: 'michael2@herman.com',
-      password: 'test'
-    })
-    .end(function(err, res) {
-      res.status.should.equal(401);
-      res.type.should.equal('application/json');
-      res.body.should.be.a('object');
-      res.body.should.have.property('status');
-      res.body.should.have.property('message');
+    
+    
+    it('should not login an unknown user', function(done) {
       
-      res.body.status.should.equal('fail');
-      res.body.message.should.equal('Email does not exist');
+      chai.request(server)
       
-      done();
+      .post('/auth/login')
+      
+      .send({
+        email: 'michael2@herman.com',
+        password: 'test'
+      })
+      
+      .end(function(err, res) {
+        // Check the response code and type
+        res.status.should.equal(401);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        
+        // Check the keys in the response
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+        
+        // Check the response values
+        res.body.status.should.equal('fail');
+        res.body.message.should.equal('Email does not exist');
+        
+        done();
+      });
     });
-  });
- 
-  
-  it('should not login a user with a bad password', function(done) {
-    chai.request(server)
-    .post('/auth/login')
-    .send({
-      email: 'michael@herman.com',
-      password: 'test2'
-    })
-    .end(function(err, res) {
-      res.status.should.equal(401);
-      res.type.should.equal('application/json');
-      res.body.should.be.a('object');
+   
+    
+    it('should not return an error for an incorrect password', function(done) {
       
-      res.body.should.have.property('status');
-      res.body.status.should.equal('fail');
+      chai.request(server)
       
-      res.body.should.have.property('message');
-      res.body.message.should.equal('This email and password combination is not correct');
+      .post('/auth/login')
       
-      done();
+      .send({
+        email: 'michael@herman.com',
+        password: 'test2'
+      })
+      
+      .end(function(err, res) {
+        // Check the response code and type
+        res.status.should.equal(401);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        
+        // Check the keys in the response
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+       
+        
+        // Check the response values
+        res.body.status.should.equal('fail');
+        res.body.message.should.equal('This email and password combination is not correct');
+        
+        done();
+      
+      });
+    
     });
+    
   });
-  
-  
-});
 
 });
