@@ -1,3 +1,11 @@
+
+
+
+// *** Deprecated now that there is authorization protection on the /api/meetup routes *** //
+
+
+
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../src/server/app');
