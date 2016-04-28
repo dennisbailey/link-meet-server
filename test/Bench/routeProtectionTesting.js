@@ -120,6 +120,27 @@ describe('Auth Routes', function() {
       });
     
     });
+    
+    it('should not allow a user that is not logged in to access user routes', function(done) {
+      
+      chai.request(server)
+      
+      .get('/api/meetup/groups/womenwhostartupcolorado')
+      
+      .set('authorization', token )
+      
+      .end(function(err, res) {
+
+        // Check the response code and type
+        res.status.should.equal(400);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+            
+        done();
+      
+      });
+    
+    });
 
 // Create and login a user to test authorization
     it('Create a new user', function(done) {

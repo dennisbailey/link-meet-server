@@ -64,16 +64,15 @@ router.get('/:id', function (req, res, next) {
 
 // delete user by id (delete self)
 router.delete('/:id/delete', function (req, res, next) {
+  
   User.findByIdAndRemove(req.params.id)
-  .then(function (user) {
-    res.status(200).json({
-      status: 'success',
-      data: user
-    });
+  
+  .then(function (user) { res.status(200).json({ status: 'success',
+                                                 message: 'You have sent this user to the meet their ancestors.' });
   })
-  .catch(function (err) {
-    return next(err);
-  });
+  
+  .catch(function (err) { return next(err); });
+  
 });
 
 

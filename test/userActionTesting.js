@@ -197,6 +197,36 @@ describe('User Action Routes', function() {
       });
     
     });
+    
+    
+    it('it should delete a user', function(done) {
+      
+      chai.request(server)
+      
+      .delete('/user/'+ userID + '/delete' )
+            
+      .set('authorization', token )
+      
+      .end(function(err, res) {
+        
+        // Check the response code and type
+        res.status.should.equal(200);
+        res.type.should.equal('application/json');
+        
+        // Check data type
+        res.body.should.be.a('object')
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+        
+        // Check data property values
+        res.body.status.should.equal('success');
+        res.body.message.should.equal('You have sent this user to the meet their ancestors.');
+        
+        done();
+        
+      });
+    
+    });
         
   });
 
