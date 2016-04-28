@@ -16,9 +16,9 @@ var authHelpers = require('./routes/helpers/authHelpers');
 
 
 // *** routes *** //
-var meetupRoutes = require('./routes/meetup.js');
+var meetupRoute = require('./routes/meetup.js');
 var authRoute = require('./routes/auth.js');
-// var userRoute = require('./routes/users.js');
+var userRoute = require('./routes/users.js');
 
 
 // *** express instance *** //
@@ -49,8 +49,9 @@ app.use(cors());
 // *** main routes *** //
 app.use('/auth', authRoute);
 app.use('/api', authHelpers.ensureAuthenticated);
-app.use('/api/meetup', meetupRoutes);
-// app.use('/user', userRoute);
+app.use('/api/meetup', meetupRoute);
+app.use('/user', authHelpers.ensureAuthenticated);
+app.use('/user', userRoute);
 
 
 // catch 404 and forward to error handler
