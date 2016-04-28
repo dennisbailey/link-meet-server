@@ -11,16 +11,16 @@ var meetupAPI = 'https://api.meetup.com/';
 
 // Get ALL Meetup categories
 router.get('/', function(req, res, next) {
-  
+
   // Query the Meetup API to return all available categories
 	rp(meetupAPI + '/2/categories?key=' + API_KEY + '&sign=true&photo-host=public&page=40')
 
   // Return the results and a success message
   .then(function(data){ res.status(200).json({ status: 'success',
-                                               data: JSON.parse(data).results })
+                                               data: JSON.parse(data).results });
   })
 
-  .catch(function(error){ return error })
+  .catch(function(error){ return error; });
 
 });
 
@@ -31,10 +31,10 @@ router.get('/:id/groups', function(req, res, next) {
 	rp(meetupAPI + 'find/groups?key=' + API_KEY + '&sign=true&photo-host=public&category=' + req.params.id + '&page=20')
 
 	.then(function(data){ res.status(200).json({ status: 'success',
-                                               data: JSON.parse(data) })
+                                               data: JSON.parse(data) });
   })
 
-	.catch(function(error){ return error })
+	.catch(function(error){ return error; });
 
 });
 
@@ -45,10 +45,10 @@ router.get('/groups/:urlname', function(req, res, next) {
 	rp(meetupAPI + req.params.urlname + '/events?key=' + API_KEY + '&sign=true&photo-host=public&page=20')
 
 	.then(function(data){ res.status(200).json({ status: 'success',
-                                               data: JSON.parse(data) })
+                                               data: JSON.parse(data) });
   })
 
-	.catch(function(error) { return error });
+	.catch(function(error) { return error; });
 
 });
 
@@ -59,12 +59,12 @@ router.get('/groups/:name/events/:event_id', function(req, res, next) {
   rp(meetupAPI + req.params.name + '/events/' + req.params.event_id + '/rsvps?' + API_KEY + '&sign=true&photo-host=public')
 
   .then(function(data){ res.status(200).json({ status: 'success',
-                                               data: JSON.parse(data).map(function(element) { return element.member; }) })
+                                               data: JSON.parse(data).map(function(element) { return element.member; }) });
   })
 
-  .catch(function(error) { return error })
+  .catch(function(error) { return error; });
 
-}); 
+});
 
 
 module.exports = router;
