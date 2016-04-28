@@ -48,7 +48,7 @@ app.use(cors());
 
 // *** main routes *** //
 app.use('/auth', authRoute);
-app.use('/api', authHelpers.ensureAuthenticated);
+// app.use('/api', authHelpers.ensureAuthenticated);
 app.use('/api/meetup', meetupRoutes);
 // app.use('/user', userRoute);
 
