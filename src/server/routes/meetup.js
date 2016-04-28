@@ -3,7 +3,7 @@ var router = express.Router();
 var http = require('http');
 var rp = require('request-promise');
 
-var apiKey = '475233687d4252104a1a4ff3ae2965';
+var apiKey = process.env.API_KEY;
 var meetupApi = 'https://api.meetup.com/';
 
 // Get Meetup categories

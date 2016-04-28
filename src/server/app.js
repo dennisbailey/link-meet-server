@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var config = require('../_config');
 var cors = require('cors');
 var mongoose = require('mongoose');
+require('dotenv').load();
 
 
 // *** routes *** //
@@ -28,9 +29,7 @@ var environment = process.env.NODE_ENV || 'development';
 var mongoURI = config.mongoURI[environment];
 
 mongoose.connect(mongoURI, function(err, res) {
-  if (err) {
-    console.log('Error connecting to the database. ' + err);
-  }
+  if (err) { console.log('Error connecting to the database. ' + err); }
 });
 
 
@@ -45,11 +44,11 @@ app.use(express.static(path.join(__dirname, '../client')));
 // *** CORS *** //
 app.use(cors());
 
+
 // *** main routes *** //
 app.use('/api/meetup', meetupRoutes);
 app.use('/auth', authRoute);
 // app.use('/user', userRoute);
-
 
 
 // catch 404 and forward to error handler
@@ -60,7 +59,7 @@ app.use(function(req, res, next) {
 });
 
 
-// *** error handlers *** //
+// *** Error Handlers *** //
 
 // development error handler
 // will print stacktrace
