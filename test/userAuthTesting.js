@@ -150,7 +150,7 @@ describe('Auth Routes', function() {
       res.body.status.should.equal('fail');
       
       res.body.should.have.property('message');
-      res.body.message.should.equal('Password is not correct');
+      res.body.message.should.equal('This email and password combination is not correct');
       
       done();
     });
