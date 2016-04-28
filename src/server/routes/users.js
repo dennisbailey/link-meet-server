@@ -20,18 +20,15 @@ var User = require('../models/users.js');
   {name, url, photoUrl} to user's groups */
 /* Update Current User Profile */
 router.put('/:id/group', function(req,res,next) {
-  var user_id = req.params.id;
-  var option = req.body;
-  User.findByIdAndUpdate(req.params.id, {$addToSet: {groups: req.body}}, {new:true})
-  .then(function (user) {
-    res.status(200).json({
-      status: 'success',
-      data: user
-    });
+    
+  User.findByIdAndUpdate(req.params.id, { $addToSet: { groups: req.body } }, { new:true } )
+  
+  .then(function (user) { res.status(200).json({ status: 'success',
+                                                 data: user });
   })
-  .catch(function (err) {
-    return next(err);
-  });
+  
+  .catch(function (err) { return next(err); });
+  
 });
 
 
@@ -39,34 +36,29 @@ router.put('/:id/group', function(req,res,next) {
   {name, notes} to user's people */
 /* Update Current User Profile */
 router.put('/:id/people', function(req,res,next) {
-  var user_id = req.params.id;
-  var option = req.body;
-  User.findByIdAndUpdate(req.params.id, {$addToSet: {people: req.body}}, {new:true})
-  .then(function (user) {
-    res.status(200).json({
-      status: 'success',
-      data: user
-    });
+
+  User.findByIdAndUpdate(req.params.id, { $addToSet: { people: req.body } }, { new: true } )
+
+  .then(function (user) { res.status(200).json({ status: 'success', 
+                                                 data: user });
   })
-  .catch(function (err) {
-    console.log("err: ", err);
-    return next(err);
-  });
+  
+  .catch(function (err) { return next(err); });
+
 });
 
 
 // get user by id
 router.get('/:id', function (req, res, next) {
+  
   User.findById(req.params.id)
-  .then(function (user) {
-    res.status(200).json({
-      status:'success',
-      data: user
-    });
+  
+  .then(function (user) { res.status(200).json({ status:'success',
+                                                 data: user });
   })
-  .catch(function (err) {
-    return next(err);
-  });
+  
+  .catch(function (err) { return next(err); });
+
 });
 
 
