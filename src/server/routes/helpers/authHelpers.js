@@ -1,5 +1,4 @@
 var moment = require('moment');
-// var jwt = require('jwt-simple');
 var jwt = require('jsonwebtoken');
 
 var config = require('../../../_config')
@@ -9,9 +8,7 @@ authHelpers = {
 
   generateToken: function(user) { 
   
-                   return jwt.sign(user, config.TOKEN_SECRET, {
-                     expiresIn: "10h"
-                   });
+                   return jwt.sign(user, config.TOKEN_SECRET, { expiresIn: "10h"});
 
   },
 
