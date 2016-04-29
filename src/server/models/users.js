@@ -23,7 +23,8 @@ var UserSchema = new Schema({
            }],
 
   people: [{ name:      { type:     String},
-             notes:     { type:     String}
+             notes:     { type:     String},
+             photoUrl:  { type:     String }
           }]
 
 });
