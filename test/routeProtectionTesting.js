@@ -121,6 +121,27 @@ describe('Auth Routes', function() {
     
     });
     
+    it('should not allow a user that is not logged in to member info', function(done) {
+      
+      chai.request(server)
+      
+      .get('/api/meetup/member/189645712')
+      
+      .set('authorization', token )
+      
+      .end(function(err, res) {
+
+        // Check the response code and type
+        res.status.should.equal(400);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+            
+        done();
+      
+      });
+    
+    });
+    
     it('should not allow a user that is not logged in to access user routes', function(done) {
       
       chai.request(server)
@@ -341,6 +362,30 @@ describe('Auth Routes', function() {
         res.body.data[0].id.should.equal(14176278);
         
         done();      
+      
+      });
+    
+    });
+
+    
+    it('should allow a user that is not logged in to access member info routes', function(done) {
+      
+      chai.request(server)
+      
+      .get('/api/meetup/member/189645712')
+      
+      .set('authorization', token )
+      
+      .end(function(err, res) {
+
+        // Check the response code and type
+        res.status.should.equal(200);
+        res.type.should.equal('application/json');
+        res.body.should.be.a('object');
+        res.body.status.should.equal('success');
+            
+        done();
+      
       });
     
     });
