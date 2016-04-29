@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- '5.1'
+- '4.1'
+- '4.0'
+- '0.12'
+- '0.11'
+services: mongodb
+before_script:
+- npm install -g mocha
+script: mocha
+deploy:
+  provider: heroku
+  api_key:
+    secure: xE7u1Lw3e8f+g20dHECK2lrbEojIs7jEp9/e+VtX7loe8wEcieEteKtJ3LIajM4ZpMzHUhJnM/EJczZsBXowj0JHIKD6T0bvQrze0mbCmK9ihijKQyNiuJm0Ug2Sa9NilO0kioeZWRG0pLayVhFFn9iMVwQcgji8Fb26J+NgcE79QpuS58dKBXWVTi9Ft+v0VTabwUuRNuvcn6j7fLmsbN0TRtQhuufNB2UQcXlXlsDB1Qj7RGnA5myKXFo1PCowG2vxjPVBh4K84nzpbhA1X8G6TOH3d6Vebb1ba98Jr5voSBKeVu75CDaCzf+0BA3JmUTTNRdVnkcV8iBUb12yjFyLC1ukpCUWEkfVwkNwbEC0Mr3IWCd8VtfJtj9OMmG0Eb++Qwmbn212tEFIoh+lE2q1X+OnbFknR9/wJZmzTjzbSeNcqMUxzaFTm8Ie78vv6l725MtLnkDpdeiOV+7ACD9ACIf+67g/K9hroe2t3DG1OXLnQKS6kGE0L6ppAAb5ucl1jDnzpSpFoS3TlWGCMlf+DTtUE2j0LCNkelw2N+LPuBe7JmaDyZJRFf+5qiuEOdvzA+kJnRcJvmQKmF0AONp0db802yduGa7PkTsn4vRmIIgTvUlSkVK7k4TQ97jyI4CK4dDVGjbJAWD6p/FortL09QAJ2SpxeQ2zs/11Hec=
+  app: link-meet-server
+  on:
+    branch: master
+    node: '5'
+    repo: dennisbailey/link-meet-server
