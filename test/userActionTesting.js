@@ -216,11 +216,9 @@ describe('User Action Routes', function() {
         // Check data type
         res.body.should.be.a('object')
         res.body.should.have.property('status');
-        res.body.should.have.property('message');
         
         // Check data property values
         res.body.status.should.equal('success');
-        res.body.message.should.equal('You have sent this user to the meet their ancestors.');
         
         done();
         
