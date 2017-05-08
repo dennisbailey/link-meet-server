@@ -224,6 +224,7 @@ describe('Auth Routes', function() {
         res.body.should.be.a('object');
         
         // Check data type and length
+        console.log(res.body.data);
         res.body.data.should.be.a('array');
         res.body.data.length.should.equal(33);
         
